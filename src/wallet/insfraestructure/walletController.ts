@@ -29,10 +29,10 @@ export async function getWallets(req: AuthRequest, res: Response) {
 
 
 export async function getWallet(req: AuthRequest, res: Response) {
-    const { walletId } = req.params;
+    const { id } = req.params;
     const { userId } = req;
 
-    const wallet = await walletService.getWallet(walletId);
+    const wallet = await walletService.getWallet(id);
 
     if (!wallet || wallet.userId !== userId) {
         res.status(404).json({ message: 'Wallet not found' });
@@ -42,17 +42,17 @@ export async function getWallet(req: AuthRequest, res: Response) {
 }
 
 export async function updateWallet(req: AuthRequest, res: Response) {
-    const { walletId } = req.params;
+    const { id } = req.params;
     const { tag, chain, address } = req.body;
     const { userId } = req;
 
-    const wallet = await walletService.getWallet(walletId);
+    const wallet = await walletService.getWallet(id);
 
     if (!wallet || wallet.userId !== userId) {
         res.status(404).json({ message: 'Wallet not found' });
     } else {
         await walletService.updateWallet({
-            id: walletId,
+            id,
             userId,
             tag,
             chain,
