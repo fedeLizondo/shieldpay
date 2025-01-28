@@ -15,7 +15,7 @@ export const validateWalletMiddleware = (req: Request, res: Response, next: Next
         next();
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid input',
                 errors: error.errors.map((err) => ({
                     field: err.path[0],
@@ -23,6 +23,6 @@ export const validateWalletMiddleware = (req: Request, res: Response, next: Next
                 })),
             });
         }
-        return res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

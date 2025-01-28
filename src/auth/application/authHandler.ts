@@ -9,7 +9,7 @@ import TokenRepository from "../domain/tokenRepository";
 
 export function authHandler(userRepository: UserRepository, tokenRepository: TokenRepository) {
     return {
-        async signIn(email, password) {
+        async signIn(email:string, password:string) {
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await userRepository.findByEmailAndPassword(email, hashedPassword);
             if (!user) {
@@ -18,7 +18,7 @@ export function authHandler(userRepository: UserRepository, tokenRepository: Tok
             return await tokenRepository.generateToken(user.id);
         },
 
-        async signUp(email, password) {
+        async signUp(email:string, password:string) {
             const hashedPassword = await bcrypt.hash(password, 10);
             const registered = await userRepository.findByEmailAndPassword(email, hashedPassword);
             if (!!registered) {

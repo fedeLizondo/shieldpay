@@ -10,18 +10,17 @@ const userSchema = z.object({
 export const mailAndPasswordValidator = (req: Request, res: Response, next: NextFunction) => {
     try {
         userSchema.parse(req.body);
-
         next();
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid input',
                 errors: error.errors.map((err) => ({
                     field: err.path[0],
-                    message: err.message, 
+                    message: err.message,
                 })),
             });
         }
-        return res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' });
     }
 };

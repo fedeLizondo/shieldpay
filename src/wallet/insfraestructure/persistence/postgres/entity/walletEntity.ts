@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, BaseEntity, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Unique } from 'typeorm';
 
 @Entity('wallets')
 @Unique(['user', 'address'])

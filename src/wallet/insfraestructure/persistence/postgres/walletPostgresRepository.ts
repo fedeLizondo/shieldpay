@@ -1,5 +1,4 @@
 import { Repository } from "typeorm";
-import { TokenEntity } from "../../../../auth/infraestructure/persistence/postrgres/entity/tokenEntity";
 import { AppDataSource } from "../../../../shared/ormconfig";
 import { WalletRepository } from "../../../domain/walletRepository";
 import { WalletEntity } from "./entity/walletEntity";

@@ -11,23 +11,19 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(json());
 
-async function initializeDB() {
-    try {
-        await AppDataSource.initialize();
-        await AppDataSource.runMigrations();
-        console.log("Database connected successfully");
-    } catch (error) {
-        console.error("Error connecting to the database", error);
-    }
-}
+AppDataSource.initialize().then(() => {
+    AppDataSource.runMigrations().then(() => {
+        app.use(authRouter);
+        app.use(walletRoutes);
 
-initializeDB();
+        app.use(errorHandler);
+        app.use(errorNotFound);
 
-app.use(authRouter);
-app.use(walletRoutes);
+        app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+    });
+    console.log("Database connected successfully");
+}).catch((error) => console.error(error));
 
-app.use(errorHandler);
-app.use(errorNotFound);
 
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+
 

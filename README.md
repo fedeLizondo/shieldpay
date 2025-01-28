@@ -10,6 +10,135 @@ These methodologies will help us separate concerns, improve testability, and ali
 
 ## How to Run 
 
+Must configurate .env 
+
+```
+PORT=3000
+NODE_ENV=development
+ACCESS_TOKEN_SECRET="secret"
+DB_PORT=5432
+DB_NAME=wallet_db
+DB_USERNAME=postgres
+DB_PASSWORD=secret
+DB_HOST=localhost
+```
+
+To run locally
+
+Can create a dockerfile for postgres like this
+```
+FROM postgres:15-alpine
+
+ENV POSTGRES_DB=wallet_db
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=secret
+
+EXPOSE 5432
+
+CMD ["postgres"]
+```
+
+And run
+
+```
+    npm install 
+    npm run build
+    npm run start 
+    
+    #for develop 
+    npm run start:dev
+```
+
+
+
+
 ## Considerations
 
+Se puede agregar herramientas de monitoreo
+Me faltaron pruebas unitarias como e2e 
+Se puede mejorar para que cumpla con OpenApi
+Se puede agregar otro modulo mas para las chains
+
 ## Features and endpoints
+
+
+### Auth
+
+Sign In: Login to app
+```
+   POST /api/v1/signin  
+
+   BODY {
+    email:""
+    password: ""
+   }
+```
+
+
+Sign Up: Create and account and return token.
+```
+   POST /api/v1/signup  
+   
+   BODY {
+    email:""
+    password: ""
+   }
+```
+
+
+Sign out: Logout app
+```
+   POST /api/v1/signout 
+   Authorization Bearer TOKEN
+```
+
+
+### Wallet
+
+Retrieve all wallets associated with the authenticated user.
+
+```
+GET /api/v1/wallets
+Authorization: Bearer token (JWT)
+```
+
+Retrieve the details of a specific wallet by its ID.
+
+```
+GET /api/v1/wallets/:id
+Authorization: Bearer token (JWT)
+```
+
+Create a new wallet for the authenticated user
+
+```
+POST /api/v1/wallets
+
+Authorization: Bearer token (JWT)
+Body
+{
+    "tag": "My Wallet",       // Optional: Wallet label
+    "chain": "Ethereum",      // Required: Blockchain chain
+    "address": "0x123..."     // Required: Wallet address
+}
+```
+
+Update the details of an existing wallet of the user
+
+```
+PUT /api/v1/wallets/:id
+Authorization: Bearer token (JWT)
+Body
+{
+    "tag": "Updated Wallet",  // Optional: Updated wallet label
+    "chain": "Ethereum",     // Required: Blockchain chain
+    "address": "0x123..."    // Required: Updated wallet address
+}
+```
+
+Delete a specific wallet of the user
+
+```
+DELETE /api/v1/wallets/:id
+Authorization: Bearer token (JWT)
+```

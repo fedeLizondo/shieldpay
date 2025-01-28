@@ -40,7 +40,6 @@ export async function signUp(req: Request, res: Response) {
 
 export async function signOut(req: AuthRequest, res: Response) {
   const { userId, token } = req;
-  const response = await authHandlerT.signOut(userId, token);
-  console.log(response);
+  const response = await authHandlerT.signOut(userId || '', token || '');
   res.status(204).end();
 }

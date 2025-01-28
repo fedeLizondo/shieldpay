@@ -10,7 +10,7 @@ export async function createWallet(req: AuthRequest, res: Response) {
     const { tag, chain, address } = req.body;
     const { userId } = req;
     try {
-        const wallet = await walletService.createWallet(userId, tag, chain, address);
+        const wallet = await walletService.createWallet(userId || '', tag, chain, address);
         res.status(201).json(wallet);
     } catch (error) {
         if (error instanceof AddressAlreadyExistError) {
@@ -23,7 +23,7 @@ export async function createWallet(req: AuthRequest, res: Response) {
 
 export async function getWallets(req: AuthRequest, res: Response) {
     const { userId } = req;
-    const wallets = await walletService.getWallets(userId);
+    const wallets = await walletService.getWallets(userId || '');
     res.status(200).json(wallets);
 }
 

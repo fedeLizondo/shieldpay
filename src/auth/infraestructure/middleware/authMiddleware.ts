@@ -7,25 +7,36 @@ const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
 
 const tokenRepository = new TokenPostgresRepository();
 
-export const authenticateJWT = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authenticateJWT = (req: AuthRequest, res: Response, next: NextFunction) : void => {
+
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        res.status(401).json({ message: 'Authorization header missing' });
+        return;
+    }
+
     const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ message: 'Missing Token' });
+        res.status(401).json({ message: 'Missing Token' });
+        return;
     }
 
     jwt.verify(token, ACCESS_TOKEN_SECRET, async (err: any, user: any) => {
         if (err) {
-            return res.status(403).json({ message: 'Invalid Token' });
+            res.status(403).json({ message: 'Invalid Token' });
+            return;
         }
 
         const tokenInBlacklist = await tokenRepository.verifyToken(token);
         if (!!tokenInBlacklist) {
-            return res.status(403).json({ message: 'Invalid Token' });
+            res.status(403).json({ message: 'Invalid Token' });
+            return;
         }
 
-        req.userId = user.payload;
-        req.token = token;
+        req.userId = user.payload || '';
+        req.token = token || '';
 
         next();
     });
