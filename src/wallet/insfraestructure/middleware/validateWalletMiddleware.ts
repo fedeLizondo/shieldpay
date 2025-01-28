@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
 
 export const walletValidator = z.object({
-    tag: z.string().optional(),
+    tag: z.string().optional().nullable(),
     chain: z.string().min(1, 'Blockchain chain is required'),
     address: z.string().min(1, 'Address is required').max(255, 'Address must be less than 256 characters'),
 });
