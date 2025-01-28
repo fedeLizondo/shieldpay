@@ -50,14 +50,12 @@ And run
 ```
 
 
-
-
 ## Considerations
 
-Se puede agregar herramientas de monitoreo
-Me faltaron pruebas unitarias como e2e 
-Se puede mejorar para que cumpla con OpenApi
-Se puede agregar otro modulo mas para las chains
+* Monitoring tools can be added.
+* I missed unit tests and e2e tests.
+* It can be improved to comply with OpenApi.
+* Another module can be added for the chains.
 
 ## Features and endpoints
 
