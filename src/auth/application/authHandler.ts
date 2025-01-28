@@ -2,7 +2,6 @@ import { randomUUID } from "crypto";
 import bcrypt from "bcryptjs";
 import { User } from "../domain/user";
 import { UserNotFoundError } from "../domain/errors/userNotFoundError";
-import { response } from "express";
 import { UserAlreadyExist } from "../domain/errors/userAlreadyExist";
 import { UserRepository } from "../domain/userRepository";
 import TokenRepository from "../domain/tokenRepository";

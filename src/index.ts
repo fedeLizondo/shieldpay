@@ -5,6 +5,7 @@ import authRouter from './auth/infraestructure/authRoutes';
 import { AppDataSource } from './shared/ormconfig';
 import { errorHandler } from "./shared/middleware/errorMiddleware";
 import { errorNotFound } from "./shared/middleware/errorNotFoundMiddleware";
+import walletRoutes from "./wallet/insfraestructure/walletRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,7 +23,8 @@ async function initializeDB() {
 
 initializeDB();
 
-app.use(authRouter)
+app.use(authRouter);
+app.use(walletRoutes);
 
 app.use(errorHandler);
 app.use(errorNotFound);

@@ -9,6 +9,6 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || "wallet_db",
   synchronize: false, 
   logging: true,
-  entities: ["src/auth/infraestructure/persistence/postrgres/entity/*.ts"],
+  entities: ["src/auth/infraestructure/persistence/postrgres/entity/*.ts" , "src/wallet/insfraestructure/persistence/postgres/entity/*.ts"],
   migrations: ["src/shared/migrations/*.ts"],
 });
