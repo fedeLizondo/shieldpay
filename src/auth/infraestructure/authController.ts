@@ -42,5 +42,5 @@ export async function signOut(req: AuthRequest, res: Response) {
   const { userId, token } = req;
   const response = await authHandlerT.signOut(userId, token);
   console.log(response);
-  res.status(204).json({});
+  res.status(204).end();
 }
