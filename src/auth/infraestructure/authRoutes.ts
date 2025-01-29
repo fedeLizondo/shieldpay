@@ -5,8 +5,8 @@ import { mailAndPasswordValidator } from "./middleware/mailAndPasswordValidatorM
 
 const authRouter = Router();
 
-authRouter.post('/api/signin', mailAndPasswordValidator, singIn)
-authRouter.post('/api/signup', mailAndPasswordValidator, signUp)
-authRouter.post('/api/signout', authenticateJWT, signOut)
+authRouter.post('/api/v1/signin', mailAndPasswordValidator, singIn)
+authRouter.post('/api/v1/signup', mailAndPasswordValidator, signUp)
+authRouter.post('/api/v1/signout', authenticateJWT, signOut)
 
 export default authRouter;
